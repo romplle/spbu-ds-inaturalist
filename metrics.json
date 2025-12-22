@@ -1,4 +1,4 @@
 {
-    "final_val_accuracy": 0.8627,
-    "final_train_loss": 0.034285
+    "final_val_accuracy": 0.898,
+    "final_train_loss": 0.01774
 }
