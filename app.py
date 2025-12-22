@@ -1,17 +1,24 @@
-import gradio as gr
 import torch
-from torchvision import models, transforms
-from PIL import Image
 import torch.nn as nn
+from PIL import Image
+from torchvision import models, transforms
+
+import gradio as gr
 
 # Классы
-classes = ['Limenitis arthemis', 'Vanessa cardui', 'Aglais io', 'Vanessa atalanta', 'Nymphalis antiopa']
+classes = [
+    'Limenitis_arthemis',
+    'Nymphalis_antiopa',
+    'Papilio_glaucus',
+    'Vanessa_atalanta',
+    'Vanessa_cardui'
+]
 
 # Загрузка модели
-model = models.resnet18(pretrained=False)
+model = models.resnet18(weights=None)
 num_features = model.fc.in_features
 model.fc = nn.Linear(num_features, 5)
-model.load_state_dict(torch.load('butterfly_classifier.pth'))
+model.load_state_dict(torch.load('butterfly_classifier.pth', weights_only=True))
 model.eval()
 
 # Трансформация для инференса

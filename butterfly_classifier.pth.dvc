@@ -1,5 +1,5 @@
 outs:
-- md5: 74e2a1880d379e5db5ccf384430221c1
+- md5: 117eebcb1363af2ddb910dcbe2679a88
   size: 44796772
   hash: md5
   path: butterfly_classifier.pth

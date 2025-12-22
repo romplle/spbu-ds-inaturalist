@@ -1,22 +1,22 @@
 import os
-import pandas as pd
-import requests
-from PIL import Image
 from io import BytesIO
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+import pandas as pd
+import requests
+from PIL import Image
+
 classes = [
     'Limenitis_arthemis',
-    'Vanessa_cardui',
-    'Aglais_io',
+    'Nymphalis_antiopa',
+    'Papilio_glaucus',
     'Vanessa_atalanta',
-    'Nymphalis_antiopa'
+    'Vanessa_cardui'
 ]
 
 data_dir = 'butterfly_dataset'
 os.makedirs(data_dir, exist_ok=True)
 
-# Глобальная сессия для переиспользования соединений
 session = requests.Session()
 
 def download_image(args):
@@ -45,8 +45,8 @@ for cls in classes:
         img_path = os.path.join(class_dir, f'{img_id}.jpg')
         tasks.append((url, img_path, img_id))
 
-# Параллельная загрузка (20–50 потоков — подберите под свой интернет/CPU)
-with ThreadPoolExecutor(max_workers=30) as executor:
+# Параллельная загрузка
+with ThreadPoolExecutor(max_workers=16) as executor:
     futures = [executor.submit(download_image, task) for task in tasks]
     for future in as_completed(futures):
         print(future.result())
