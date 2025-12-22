@@ -4,6 +4,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, models, transforms
 from sklearn.metrics import accuracy_score
+import json
 
 # Параметры
 data_dir = 'butterfly_dataset'
@@ -57,7 +58,8 @@ for epoch in range(epochs):
         loss.backward()
         optimizer.step()
         running_loss += loss.item()
-    print(f'Epoch {epoch+1}/{epochs}, Loss: {running_loss/len(train_loader)}')
+    
+    avg_loss = running_loss / len(train_loader)
     
     # Валидация
     model.eval()
@@ -69,7 +71,18 @@ for epoch in range(epochs):
             _, predicted = torch.max(outputs, 1)
             preds.extend(predicted.cpu().numpy())
             true.extend(labels.cpu().numpy())
+    
     acc = accuracy_score(true, preds)
-    print(f'Validation Accuracy: {acc:.4f}')
+    
+    print(f'Epoch {epoch+1}/{epochs}, Loss: {avg_loss:.6f}, Validation Accuracy: {acc:.4f}')
 
 torch.save(model.state_dict(), 'butterfly_classifier.pth')
+
+# Запись метрик для DVC
+metrics = {
+    "final_val_accuracy": round(float(acc), 4),
+    "final_train_loss": round(float(avg_loss), 6)
+}
+
+with open('metrics.json', 'w') as f:
+    json.dump(metrics, f, indent=4)

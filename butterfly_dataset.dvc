@@ -1,6 +1,0 @@
-outs:
-- md5: 30e5328f17a15d72a0a5129f88a3303e.dir
-  size: 242506491
-  nfiles: 5217
-  hash: md5
-  path: butterfly_dataset
