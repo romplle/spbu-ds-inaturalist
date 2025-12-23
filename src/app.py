@@ -18,7 +18,7 @@ classes = [
 model = models.resnet18(weights=None)
 num_features = model.fc.in_features
 model.fc = nn.Linear(num_features, 5)
-model.load_state_dict(torch.load('butterfly_classifier.pth', weights_only=True))
+model.load_state_dict(torch.load('models/butterfly_classifier.pth', weights_only=True))
 model.eval()
 
 # Трансформация для инференса

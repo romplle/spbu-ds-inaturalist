@@ -1,13 +1,14 @@
+import json
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import datasets, models, transforms
 from sklearn.metrics import accuracy_score
-import json
 
 # Параметры
-data_dir = 'butterfly_dataset'
+data_dir = 'data/processed'
 batch_size = 64
 epochs = 25
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -82,7 +83,7 @@ for epoch in range(epochs):
     
     scheduler.step(acc)
     
-torch.save(model.state_dict(), 'butterfly_classifier.pth')
+torch.save(model.state_dict(), 'models/butterfly_classifier.pth')
 
 # Запись метрик для DVC
 metrics = {

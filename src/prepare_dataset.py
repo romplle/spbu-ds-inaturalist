@@ -14,7 +14,7 @@ classes = [
     'Vanessa_cardui'
 ]
 
-data_dir = 'butterfly_dataset'
+data_dir = 'data/processed/'
 os.makedirs(data_dir, exist_ok=True)
 
 session = requests.Session()
@@ -33,7 +33,7 @@ def download_image(args):
 tasks = []
 
 for cls in classes:
-    csv_path = f'{cls}/{cls}.csv'
+    csv_path = f'data/raw/{cls}.csv'
     df = pd.read_csv(csv_path)
     
     class_dir = os.path.join(data_dir, cls)

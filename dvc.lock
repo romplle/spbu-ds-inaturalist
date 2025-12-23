@@ -1,56 +1,56 @@
 schema: '2.0'
 stages:
   prepare_data:
-    cmd: python prepare_dataset.py
+    cmd: python src/prepare_dataset.py
     deps:
-    - path: Limenitis_arthemis/Limenitis_arthemis.csv
+    - path: data/raw/Limenitis_arthemis.csv
       hash: md5
       md5: ad3bedeee049f6ed724b442c5c5471bf
       size: 115547
-    - path: Nymphalis_antiopa/Nymphalis_antiopa.csv
+    - path: data/raw/Nymphalis_antiopa.csv
       hash: md5
       md5: 210db8c275e5960a7857a434cf6acc0f
       size: 102625
-    - path: Papilio_glaucus/Papilio_glaucus.csv
+    - path: data/raw/Papilio_glaucus.csv
       hash: md5
       md5: 67da23ce4af7089ece80b1e19052cf80
       size: 105552
-    - path: Vanessa_atalanta/Vanessa_atalanta.csv
+    - path: data/raw/Vanessa_atalanta.csv
       hash: md5
       md5: a3606b09551eb5b11278c58d281da32b
       size: 103721
-    - path: Vanessa_cardui/Vanessa_cardui.csv
+    - path: data/raw/Vanessa_cardui.csv
       hash: md5
       md5: 8f4b9b06fbffdae5b399f36eee3adc32
       size: 98426
-    - path: prepare_dataset.py
+    - path: src/prepare_dataset.py
       hash: md5
-      md5: d81c49c78de3a029d33cbcf9c1da16c2
-      size: 1461
+      md5: bf483740d406426359358f172c770462
+      size: 1462
     outs:
-    - path: butterfly_dataset
+    - path: data/processed
       hash: md5
       md5: 3eb0bfffae4583c56850d37efb54758d.dir
       size: 243738125
       nfiles: 5245
   train:
-    cmd: python train_model.py
+    cmd: python src/train_model.py
     deps:
-    - path: butterfly_dataset
+    - path: data/processed
       hash: md5
       md5: 3eb0bfffae4583c56850d37efb54758d.dir
       size: 243738125
       nfiles: 5245
-    - path: train_model.py
+    - path: src/train_model.py
       hash: md5
-      md5: 23283c3e67a08da1e25a6aa3ff86d879
-      size: 3228
+      md5: 5de043ce8d7beb6195e1e34ffce21af2
+      size: 3234
     outs:
-    - path: butterfly_classifier.pth
-      hash: md5
-      md5: 3f5f287509a46da9aa48af0d78cf6e16
-      size: 44796772
     - path: metrics.json
       hash: md5
-      md5: dd68ff7f514c26de99dc1431b54ee581
-      size: 73
+      md5: 9cc1f75c0091c9f55b3010a198d75582
+      size: 72
+    - path: models/butterfly_classifier.pth
+      hash: md5
+      md5: 7952781f23dfb3c585b62c53dfe96693
+      size: 44796772

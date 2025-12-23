@@ -1,24 +1,24 @@
 stages:
   prepare_data:
-    cmd: python prepare_dataset.py
+    cmd: python src/prepare_dataset.py
     deps:
-      - prepare_dataset.py
-      - Limenitis_arthemis/Limenitis_arthemis.csv
-      - Papilio_glaucus/Papilio_glaucus.csv
-      - Vanessa_atalanta/Vanessa_atalanta.csv
-      - Vanessa_cardui/Vanessa_cardui.csv
-      - Nymphalis_antiopa/Nymphalis_antiopa.csv
+      - src/prepare_dataset.py
+      - data/raw/Limenitis_arthemis.csv
+      - data/raw/Nymphalis_antiopa.csv
+      - data/raw/Papilio_glaucus.csv
+      - data/raw/Vanessa_atalanta.csv
+      - data/raw/Vanessa_cardui.csv
     outs:
-      - butterfly_dataset:
+      - data/processed:
           cache: true
 
   train:
-    cmd: python train_model.py
+    cmd: python src/train_model.py
     deps:
-      - train_model.py
-      - butterfly_dataset
+      - src/train_model.py
+      - data/processed
     outs:
-      - butterfly_classifier.pth
+      - models/butterfly_classifier.pth
     metrics:
       - metrics.json:
           cache: false
