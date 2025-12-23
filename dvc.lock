@@ -43,14 +43,14 @@ stages:
       nfiles: 5245
     - path: train_model.py
       hash: md5
-      md5: 58538193b8f4c821717f6d4c1bd4402e
-      size: 3053
+      md5: 23283c3e67a08da1e25a6aa3ff86d879
+      size: 3228
     outs:
     - path: butterfly_classifier.pth
       hash: md5
-      md5: 4752eb70eda7279a87e0100d1c98f8e1
+      md5: 3f5f287509a46da9aa48af0d78cf6e16
       size: 44796772
     - path: metrics.json
       hash: md5
-      md5: a65164cb333436bc5f8b38400add2cce
-      size: 71
+      md5: dd68ff7f514c26de99dc1431b54ee581
+      size: 73

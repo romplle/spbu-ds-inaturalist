@@ -48,6 +48,7 @@ model = model.to(device)
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
+scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=3)
 
 # Обучение
 for epoch in range(epochs):
@@ -77,8 +78,10 @@ for epoch in range(epochs):
     
     acc = accuracy_score(true, preds)
     
-    print(f'Epoch {epoch+1}/{epochs}, Loss: {avg_loss:.6f}, Validation Accuracy: {acc:.4f}')
-
+    print(f'Epoch {epoch+1}/{epochs}, Loss: {avg_loss:.6f}, Validation Accuracy: {acc:.4f}, LR: {optimizer.param_groups[0]["lr"]:.6f}')
+    
+    scheduler.step(acc)
+    
 torch.save(model.state_dict(), 'butterfly_classifier.pth')
 
 # Запись метрик для DVC
